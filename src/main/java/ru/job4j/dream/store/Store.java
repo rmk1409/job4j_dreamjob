@@ -58,4 +58,8 @@ public class Store {
     public Collection<Candidate> findAllCandidates() {
         return candidates.values();
     }
+
+    public void removeCandidate(Integer id) {
+        candidates.remove(id);
+    }
 }
