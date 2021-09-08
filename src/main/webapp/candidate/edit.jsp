@@ -22,7 +22,7 @@
   <title>Работа мечты</title>
 </head>
 <body>
-<<%
+<%
   String id = request.getParameter("id");
   Candidate candidate = new Candidate(0, "");
   if (id != null) {
@@ -40,7 +40,7 @@
         <% } %>
       </div>
       <div class="card-body">
-        <form action="<%=request.getContextPath()%>/candidate/save?id=<%=candidate.getId()%>" method="post">
+        <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
           <div class="form-group">
             <label>Имя</label>
             <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
