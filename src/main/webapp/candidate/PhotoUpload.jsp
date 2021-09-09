@@ -11,8 +11,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container">
+    <c:import url="../nav-menu.jsp"/>
     <h2>Upload image</h2>
     <form action="<c:url value='/upload?id=${param.id}'/>" method="post" enctype="multipart/form-data">
         <div class="checkbox">

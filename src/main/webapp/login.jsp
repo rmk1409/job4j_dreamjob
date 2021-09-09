@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="container pt-3">
-
+    <c:import url="nav-menu.jsp"/>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
