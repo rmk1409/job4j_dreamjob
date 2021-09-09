@@ -36,6 +36,7 @@
                     <tr>
                         <th scope="col">Названия</th>
                         <th scope="col">Фото</th>
+                        <th scope="col" colspan="2"></th>
                     </tr>
                     </thead>
                     <tbody>

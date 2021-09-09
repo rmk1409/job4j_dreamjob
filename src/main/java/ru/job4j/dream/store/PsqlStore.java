@@ -89,6 +89,49 @@ public class PsqlStore implements Store {
         }
     }
 
+    @Override
+    public void save(Candidate post) {
+        if (post.getId() == 0) {
+            create(post);
+        } else {
+            update(post);
+        }
+    }
+
+    private Candidate create(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, candidate.getName());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    candidate.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidate;
+    }
+
+    private void update(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("UPDATE candidate SET name = ? WHERE id = ?")
+        ) {
+            ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getId());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    candidate.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private Post create(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO post(name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
@@ -140,5 +183,36 @@ public class PsqlStore implements Store {
             e.printStackTrace();
         }
         return post;
+    }
+
+    @Override
+    public Candidate findCandidateById(int id) {
+        Candidate candidate = null;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id=?")
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    candidate = new Candidate(it.getInt("id"), it.getString("name"));
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidate;
+    }
+
+    @Override
+    public void removeCandidate(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate WHERE id=?")
+        ) {
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
