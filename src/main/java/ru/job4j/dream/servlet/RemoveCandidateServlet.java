@@ -1,6 +1,6 @@
 package ru.job4j.dream.servlet;
 
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +15,7 @@ public class RemoveCandidateServlet extends HttpServlet {
         String id = req.getParameter("id");
         String path = "/home/rmk/images";
         new File(path + File.separator + id + ".jpg").delete();
-        Store.instOf().removeCandidate(Integer.parseInt(id));
+        MemStore.instOf().removeCandidate(Integer.parseInt(id));
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 }
