@@ -296,6 +296,28 @@ public class PsqlStore implements Store {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        User user = null;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email=?")
+        ) {
+            ps.setString(1, email);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    int id = it.getInt("id");
+                    String name = it.getString("name");
+                    String password = it.getString("password");
+                    user = new User(id, name, email, password);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public void removeCandidate(int id) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate WHERE id=?")

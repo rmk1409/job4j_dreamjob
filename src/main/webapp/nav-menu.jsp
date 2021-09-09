@@ -7,6 +7,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
+            </li>
         </c:if>
         <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>

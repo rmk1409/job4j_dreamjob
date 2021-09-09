@@ -28,4 +28,6 @@ public interface Store {
     void removeUser(int id);
 
     Candidate findCandidateById(int id);
+
+    User findUserByEmail(String email);
 }
