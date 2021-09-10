@@ -36,8 +36,25 @@
       <label for="input-description">description</label>
       <input type="text" class="form-control" id="input-description">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" onclick="validate()">Submit</button>
   </form>
+  <script>
+    const validate = () => {
+      const name = $('#input-name').val();
+      const familyName = $('#input-family-name').val();
+      const description = $('#input-description').val();
+
+      if (!name) {
+        alert('Fill name field.');
+      }
+      if (!familyName) {
+        alert('Fill family name field.');
+      }
+      if (!description) {
+        alert('Fill description field.');
+      }
+    }
+  </script>
   <br>
   <table class="table table-striped table-dark">
     <thead>
