@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PsqlStore implements Store {
+    private final static Logger LOGGER = Logger.getLogger(PsqlStore.class.getName());
     private final BasicDataSource pool = new BasicDataSource();
 
     private PsqlStore() {
@@ -59,7 +62,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return posts;
     }
@@ -76,7 +79,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return candidates;
     }
@@ -97,7 +100,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return users;
     }
@@ -141,7 +144,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return candidate;
     }
@@ -159,7 +162,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
     }
 
@@ -175,7 +178,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return post;
     }
@@ -193,7 +196,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
     }
 
@@ -211,7 +214,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return user;
     }
@@ -231,7 +234,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
     }
 
@@ -249,7 +252,7 @@ public class PsqlStore implements Store {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return post;
     }
@@ -271,7 +274,7 @@ public class PsqlStore implements Store {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return user;
     }
@@ -290,7 +293,7 @@ public class PsqlStore implements Store {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return candidate;
     }
@@ -312,7 +315,7 @@ public class PsqlStore implements Store {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
         return user;
     }
@@ -325,7 +328,7 @@ public class PsqlStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
     }
 
@@ -337,7 +340,7 @@ public class PsqlStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "An exception was thrown", e);
         }
 
     }

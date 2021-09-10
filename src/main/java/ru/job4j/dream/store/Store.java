@@ -21,13 +21,13 @@ public interface Store {
 
     Post findById(int id);
 
+    Candidate findCandidateById(int id);
+
     User findUserById(int id);
+
+    User findUserByEmail(String email);
 
     void removeCandidate(int id);
 
     void removeUser(int id);
-
-    Candidate findCandidateById(int id);
-
-    User findUserByEmail(String email);
 }
