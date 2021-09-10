@@ -42,6 +42,11 @@
                         <input type="password" class="form-control" name="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Registration</button>
+                    <c:if test="${not empty error}">
+                        <div style="color:red; font-weight: bold; margin: 30px 0;">
+                            <c:out value="${error}"/>
+                        </div>
+                    </c:if>
                 </form>
             </div>
         </div>
