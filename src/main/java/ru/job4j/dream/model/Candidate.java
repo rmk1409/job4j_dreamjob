@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class Candidate {
     private int id;
+    private int cityId;
     private String name;
 
-    public Candidate(int id, String name) {
+    public Candidate(int id, int cityId, String name) {
         this.id = id;
+        this.cityId = cityId;
         this.name = name;
     }
 
@@ -25,6 +27,14 @@ public class Candidate {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     @Override

@@ -21,7 +21,8 @@ public class CandidateServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         PsqlStore.instOf().save(
                 new Candidate(
-                        Integer.valueOf(req.getParameter("id")),
+                        Integer.parseInt(req.getParameter("id")),
+                        Integer.parseInt(req.getParameter("city-id")),
                         req.getParameter("name")
                 )
         );

@@ -27,7 +27,7 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, 1, "");
     if (id != null) {
         candidate = PsqlStore.instOf().findCandidateById(Integer.valueOf(id));
     }
@@ -49,11 +49,37 @@
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="form-group">
+                        <label>Город</label>
+                        <select class="form-control" name="city-id" id="city-input"
+                                data-selected-city-id="<%=candidate.getCityId()%>">
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script src="../js/field-validation.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(() => {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/dreamjob/city',
+            dataType: 'json'
+        }).done((data) => {
+            const citySelect = $('#city-input')[0];
+            const selectedCityId = citySelect.dataset.selectedCityId;
+            for (let i = 0; i < data.length; i++) {
+                const city = data[i];
+                citySelect.insertAdjacentHTML('beforeend', `<option value=${city.id} ${city.id == selectedCityId? 'selected' : ''}>${city.name}</option>`);
+            }
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
+</script>
 </body>
 </html>

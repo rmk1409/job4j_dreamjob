@@ -1,3 +1,7 @@
+<%@ page import="ru.job4j.dream.store.PsqlStore" %>
+<%@ page import="java.util.stream.Collectors" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="ru.job4j.dream.model.City" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
@@ -23,6 +27,10 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<%
+    Map<Integer, String> idToCityName = PsqlStore.instOf().findAllCities().stream().collect(Collectors.toMap(City::getId, City::getName));
+    pageContext.setAttribute("idToCityName", idToCityName);
+%>
 <div class="container pt-3">
     <c:import url="nav-menu.jsp"/>
     <div class="row">
@@ -34,7 +42,8 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Город</th>
                         <th scope="col">Фото</th>
                         <th scope="col" colspan="2"></th>
                     </tr>
@@ -49,7 +58,11 @@
                                 <c:out value="${candidate.name}"/>
                             </td>
                             <td>
-                                <img src="<c:url value='/download?name=${candidate.id}'/>" alt="candidate photo" width="100px" height="100px">
+                                <c:out value="${idToCityName[candidate.cityId]}"/>
+                            </td>
+                            <td>
+                                <img src="<c:url value='/download?name=${candidate.id}'/>" alt="candidate photo"
+                                     width="100px" height="100px">
                             </td>
                             <td>
                                 <a href='<c:url value="/candidate/PhotoUpload.jsp?id=${candidate.id}"/>'>

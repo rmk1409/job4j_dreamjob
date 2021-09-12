@@ -1,3 +1,8 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="ru.job4j.dream.store.PsqlStore" %>
+<%@ page import="java.util.stream.Collectors" %>
+<%@ page import="ru.job4j.dream.model.City" %>
+<%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
@@ -23,6 +28,13 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<%
+    Store store = PsqlStore.instOf();
+    Map<Integer, String> idToCityName = store.findAllCities().stream().collect(Collectors.toMap(City::getId, City::getName));
+    pageContext.setAttribute("idToCityName", idToCityName);
+    pageContext.setAttribute("candidates", store.findTodayCandidates());
+    pageContext.setAttribute("posts", store.findTodayPosts());
+%>
 <div class="container">
     <c:import url="nav-menu.jsp"/>
     <div class="row">
@@ -31,6 +43,27 @@
                 Сегодняшние вакансии.
             </div>
             <div class="card-body">
+                <c:if test="${not empty posts}">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Названия</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${posts}" var="post">
+                            <tr>
+                                <td>
+                                    <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
+                                        <i class="fa fa-edit mr-3"></i>
+                                    </a>
+                                    <c:out value="${post.name}"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
             </div>
         </div>
     </div>
@@ -40,6 +73,49 @@
                 Сегодняшние кандидаты.
             </div>
             <div class="card-body">
+                <c:if test="${not empty candidates}">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Название</th>
+                            <th scope="col">Город</th>
+                            <th scope="col">Фото</th>
+                            <th scope="col" colspan="2"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${candidates}" var="candidate">
+                            <tr>
+                                <td>
+                                    <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}"/>'>
+                                        <i class="fa fa-edit mr-3"></i>
+                                    </a>
+                                    <c:out value="${candidate.name}"/>
+                                </td>
+                                <td>
+                                    <c:out value="${idToCityName[candidate.cityId]}"/>
+                                </td>
+                                <td>
+                                    <img src="<c:url value='/download?name=${candidate.id}'/>" alt="candidate photo"
+                                         width="100px" height="100px">
+                                </td>
+                                <td>
+                                    <a href='<c:url value="/candidate/PhotoUpload.jsp?id=${candidate.id}"/>'>
+                                        Загрузить фото
+                                        <i class="fa fa-upload mr-3"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href='<c:url value="/candidate/remove.do?id=${candidate.id}"/>'>
+                                        Удалить кандидата
+                                        <i class="fa fa-trash mr-3"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
             </div>
         </div>
     </div>
