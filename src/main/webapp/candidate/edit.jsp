@@ -76,8 +76,6 @@
                 const city = data[i];
                 citySelect.insertAdjacentHTML('beforeend', `<option value=${city.id} ${city.id == selectedCityId? 'selected' : ''}>${city.name}</option>`);
             }
-        }).fail(function (err) {
-            console.log(err);
         });
     });
 </script>
