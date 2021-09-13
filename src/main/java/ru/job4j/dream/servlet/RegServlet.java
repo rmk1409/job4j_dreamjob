@@ -23,7 +23,8 @@ public class RegServlet extends HttpServlet {
         Store store = PsqlStore.instOf();
         String email = req.getParameter("email");
         if (Objects.nonNull(store.findUserByEmail(email))) {
-            req.setAttribute("error", "Пользователь с таким email уже зарегистрирован в системе, используйте другой email");
+            String errorMessage = "Пользователь с таким email уже зарегистрирован в системе, используйте другой email";
+            req.setAttribute("error", errorMessage);
             doGet(req, resp);
         } else {
             User user = new User(0, req.getParameter("name"), email, req.getParameter("password"));

@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.store.PsqlStore;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ public class CityServlet extends HttpServlet {
     private static final Gson GSON = new GsonBuilder().create();
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         cities.addAll(PsqlStore.instOf().findAllCities());
     }
 
