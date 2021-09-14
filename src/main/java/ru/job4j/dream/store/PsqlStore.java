@@ -98,9 +98,7 @@ public class PsqlStore implements Store {
         String sql = "" +
                 "SELECT * " +
                 "FROM post " +
-                "WHERE created >= now() - interval '24 hour' " +
-                "AND created <= now () + interval '24 hour'" +
-                "";
+                "WHERE created >= now() - interval '24 hour'";
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)
         ) {
@@ -123,9 +121,7 @@ public class PsqlStore implements Store {
         String sql = "" +
                 "SELECT * " +
                 "FROM candidate " +
-                "WHERE created >= now() - interval '24 hour' " +
-                "AND created <= now () + interval '24 hour'" +
-                "";
+                "WHERE created >= now() - interval '24 hour'";
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)
         ) {
